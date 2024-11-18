@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::get('/get-similar-user', function () {
     // Top 500 in the movies table
     $movies = DB::table('movies')->where('timesRated', '>=', 10)->orderBy('rating', 'desc')->take(500)->get();
 
@@ -34,6 +34,26 @@ Route::get('/', function () {
     $similarUser = $users[0]->userId;
 
     return $similarUser;
+});
+
+Route::get('top-500', function () {
+    // output a json encoded list of the titles
+    $movies = DB::table('movies')->where('timesRated', '>', 20)->orderBy('rating', 'desc')->limit(500)->get();
+    $movies = json_encode($movies->pluck('title')->all());
+    return $movies;
+});
+
+Route::get('/', function () {
+    $movies = DB::table('movies')->where('timesRated', '>', 20)->orderBy('rating', 'desc')->limit(200)->get();
+    $movies = json_encode($movies->pluck('title')->all());
+
+    return view('home', compact('movies'));
+});
+
+Route::post('/get-recommendations', function () {
+    return response()->json([
+        'movies' => ['d','e','f']
+    ]);
 });
 
 // function csvToArray($filename) {
