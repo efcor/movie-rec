@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/call', function () {
-    //      exec('sudo -u travis python3 /var/www/movie-rec.devtrav.com/test_env.py 2>&1', $output);
     $userId = 42;
     exec('sudo -u travis python3 /home/travis/score_top_n.py '.$userId.' 50 2>&1', $output);
     dd($output);
@@ -67,11 +66,7 @@ Route::post('/get-recommendations', function () {
         }
     }
 
-    // now find a similar user
-    // Top 500 in the movies table
-    $movies = DB::table('movies')->where('timesRated', '>=', 10)->orderBy('rating', 'desc')->take(500)->get();
-
-    // Now simulate what I would do to determine a similar user to pass to the model:
+    // Now determine a similar user to pass to the model:
     // select userId, sum(rating), count(*)
     // from ratings
     // where movieId in (2288,55118,116897,2731,3275,1704,54190,5903,104879,33166,1203,2010,4306,3260,905,1204,46578,1884,67255,6350)
@@ -87,12 +82,21 @@ Route::post('/get-recommendations', function () {
         ->orderBy(DB::raw('sum(rating)'), 'desc')
         ->get();
 
-    $similarUser = $users[0]->userId;
+    $userId = $users[0]->userId;
 
-    dd($similarUser);
+    // now call the python script, passing in the user, and get it's output
+    exec('sudo -u travis python3 /home/travis/score_top_n.py '.$userId.' 2>&1', $output);
+
+    // parse the output of the script to get only the top 30 highest ranked
+    $titles = array_slice($output, 6, 31);
+
+    $titles = array_map(function($string) {
+        $lastColonPosition = strrpos($string, ':');
+        return substr($string, 0, $lastColonPosition);
+    }, $titles);
 
     return response()->json([
-        'movies' => ['d','e','f']
+        'movies' => $titles
     ]);
 });
 

@@ -39,7 +39,7 @@
                 <p class="mb-2">{{ recommendation }}</p>
 
                 <p>
-                    <a href="https://www.imdb.com/find/?q=inception" target="_blank" class="text-blue-500">View on imdb</a>
+                    <a :href="`https://www.imdb.com/find/?q=${encodeTitle(recommendation)}`" target="_blank" class="text-blue-500">View on imdb</a>
                 </p>
             </div>
 
@@ -116,6 +116,9 @@
             },
             rateMore() {
                 this.page = 'rate';
+            },
+            encodeTitle(title) {
+                return window.encodeURIComponent(title);
             }
         },
         mounted() {
