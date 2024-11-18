@@ -3,6 +3,13 @@
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/call', function () {
+    //      exec('sudo -u travis python3 /var/www/movie-rec.devtrav.com/test_env.py 2>&1', $output);
+    $userId = 42;
+    exec('sudo -u travis python3 /home/travis/score_top_n.py '.$userId.' 50 2>&1', $output);
+    dd($output);
+});
+
 Route::get('/get-similar-user', function () {
     // Top 500 in the movies table
     $movies = DB::table('movies')->where('timesRated', '>=', 10)->orderBy('rating', 'desc')->take(500)->get();
@@ -51,6 +58,39 @@ Route::get('/', function () {
 });
 
 Route::post('/get-recommendations', function () {
+    // iterate over the movie titles, getting their movie ids
+    $ids = [];
+    foreach (request()->input('movies') as $movie) {
+        $id = DB::table('movies')->where('title', $movie)->get()->first();
+        if ($id) {
+            $ids[] = $id->movieId;
+        }
+    }
+
+    // now find a similar user
+    // Top 500 in the movies table
+    $movies = DB::table('movies')->where('timesRated', '>=', 10)->orderBy('rating', 'desc')->take(500)->get();
+
+    // Now simulate what I would do to determine a similar user to pass to the model:
+    // select userId, sum(rating), count(*)
+    // from ratings
+    // where movieId in (2288,55118,116897,2731,3275,1704,54190,5903,104879,33166,1203,2010,4306,3260,905,1204,46578,1884,67255,6350)
+    // and rating > 0.5
+    // group by userId
+    // order by sum(rating) desc
+    $users = DB::table('ratings')
+        ->select('userId', DB::raw('sum(rating) as sum_rating'), DB::raw('count(*) as num_rated'))
+        ->whereIn('movieId', $ids)
+        ->whereNotIn('userId', [414,599,474,448,274,610,68,380,606,288,249,387,182,307,603,298,177,318,232,480,608,600,483,590,105,19,305,489,111,438,217,140,477])
+        ->where('rating', '>', 0.5)
+        ->groupBy('userId')
+        ->orderBy(DB::raw('sum(rating)'), 'desc')
+        ->get();
+
+    $similarUser = $users[0]->userId;
+
+    dd($similarUser);
+
     return response()->json([
         'movies' => ['d','e','f']
     ]);

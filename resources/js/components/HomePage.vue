@@ -72,7 +72,7 @@
     export default {
         data() {
             return {
-                likeThreshold: 5,
+                likeThreshold: 20,
                 movies: shuffleArray(window.movies),
                 moviesToRate: [],
                 likedMovies: [],
