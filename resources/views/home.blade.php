@@ -14,7 +14,7 @@
 </head>
 <body class="bg-gray-300">
 
-    <div id="app" class="mx-auto mt-12 w-96 bg-gray-100 p-4 mb-8 rounded-md">
+    <div id="app" class="mx-auto mt-12 bg-gray-100 p-4 mb-8 rounded-md" style="width: 320px;">
         <home-page></home-page>
     </div>
 

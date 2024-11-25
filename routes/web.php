@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/call', function () {
-    $userId = 42;
-    exec('sudo -u travis python3 /home/travis/score_top_n.py '.$userId.' 50 2>&1', $output);
-    dd($output);
+Route::get('/make-movies-json', function () {
+    // $movies = DB::table('movies')->select('title')->get()->pluck('title')->all();
+
+    // $content = json_encode($movies);
+
+    // file_put_contents('/var/www/movie-rec.devtrav.com/storage/all-movies.json', $content);
 });
 
 Route::get('/get-similar-user', function () {
@@ -57,6 +59,8 @@ Route::get('/', function () {
 });
 
 Route::post('/get-recommendations', function () {
+    sleep(5);
+    abort(500);
     // iterate over the movie titles, getting their movie ids
     $ids = [];
     foreach (request()->input('movies') as $movie) {
@@ -94,6 +98,12 @@ Route::post('/get-recommendations', function () {
         $lastColonPosition = strrpos($string, ':');
         return substr($string, 0, $lastColonPosition);
     }, $titles);
+
+    $titles = array_values(array_filter($titles, function ($t) {
+        return ! in_array($t, request()->input('movies'));
+    }));
+
+    $titles = array_slice($titles, 0, 15);
 
     return response()->json([
         'movies' => $titles

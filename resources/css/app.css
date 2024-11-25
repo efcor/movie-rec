@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* https://github.com/n3r4zzurr0/svg-spinners/blob/main/svg-css/3-dots-bounce.svg?short_path=fa56388 */
+.spinner_qM83 {
+    animation: spinner_8HQG 1.05s infinite
+}
+
+.spinner_oXPr {
+    animation-delay: .1s
+}
+
+.spinner_ZTLf {
+    animation-delay: .2s
+}
+
+@keyframes spinner_8HQG {
+
+    0%,
+    57.14% {
+        animation-timing-function: cubic-bezier(0.33, .66, .66, 1);
+        transform: translate(0)
+    }
+
+    28.57% {
+        animation-timing-function: cubic-bezier(0.33, 0, .66, .33);
+        transform: translateY(-6px)
+    }
+
+    100% {
+        transform: translate(0)
+    }
+}
+
+/* end spinner styles from github url mentioned above */
