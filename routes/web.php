@@ -59,8 +59,6 @@ Route::get('/', function () {
 });
 
 Route::post('/get-recommendations', function () {
-    sleep(5);
-    abort(500);
     // iterate over the movie titles, getting their movie ids
     $ids = [];
     foreach (request()->input('movies') as $movie) {
