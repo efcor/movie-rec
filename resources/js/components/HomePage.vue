@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- ratings page -->
-        <div v-show="page === 'rate'" style="width: 280px;">
+        <div v-show="page === 'rate'" style="width: 320px;">
             <div v-show="!isLoadingRecs">
                 <h3 class="text-xl mb-4">Rate Movies</h3>
 
