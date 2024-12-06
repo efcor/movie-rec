@@ -87,6 +87,7 @@ Route::post('/get-recommendations', function () {
     $userId = $users[0]->userId;
 
     // now call the python script, passing in the user, and get it's output
+    // note: there's a copy of score_top_n.py in the root of this repo
     exec('sudo -u travis python3 /home/travis/score_top_n.py '.$userId.' 2>&1', $output);
 
     // parse the output of the script to get only the top 30 highest ranked
