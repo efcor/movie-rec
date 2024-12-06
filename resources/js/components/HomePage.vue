@@ -10,63 +10,48 @@
                 <div class="border border-gray-300 shadow-md p-3 mb-3" v-touch:swipe="onSwipeItem(1)">
                     <p class="mb-2">{{ moviesToRate[0] }}</p>
 
-                    <div class="flex justify-between mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-                        </svg>
+                    <div class="flex justify-between items-center">
+                        <button class="bg-neutral-500 hover:bg-neutral-700 text-neutral-100 py-1 px-2 rounded-sm" @click="markSkipped(1)">
+                            Dismiss
+                        </button>
 
-                        <span>Swipe</span>
+                        <span class="text-xs italic"><- or swipe -></span>
 
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                        </svg>
-                    </div>
-
-                    <div class="flex justify-between">
-                        <span>Dismiss</span>
-                        <span>Liked it</span>
+                        <button class="bg-sky-700 hover:bg-sky-900 text-neutral-100 py-1 px-2 mr-2 rounded-sm" @click="markLiked(1)">
+                            Liked it
+                        </button>
                     </div>
                 </div>
 
                 <div class="border border-gray-300 shadow-md p-3 mb-3" v-touch:swipe="onSwipeItem(2)">
                     <p class="mb-2">{{ moviesToRate[1] }}</p>
 
-                    <div class="flex justify-between mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-                        </svg>
+                    <div class="flex justify-between items-center">
+                        <button class="bg-neutral-500 hover:bg-neutral-700 text-neutral-100 py-1 px-2 rounded-sm" @click="markSkipped(2)">
+                            Dismiss
+                        </button>
 
-                        <span>Swipe</span>
+                        <span class="text-xs italic"><- or swipe -></span>
 
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                        </svg>
-                    </div>
-
-                    <div class="flex justify-between">
-                        <span>Dismiss</span>
-                        <span>Liked it</span>
+                        <button class="bg-sky-700 hover:bg-sky-900 text-neutral-100 py-1 px-2 mr-2 rounded-sm" @click="markLiked(2)">
+                            Liked it
+                        </button>
                     </div>
                 </div>
 
                 <div class="border border-gray-300 shadow-md p-3 mb-3" v-touch:swipe="onSwipeItem(3)">
                     <p class="mb-2">{{ moviesToRate[2] }}</p>
 
-                    <div class="flex justify-between mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-                        </svg>
+                    <div class="flex justify-between items-center">
+                        <button class="bg-neutral-500 hover:bg-neutral-700 text-neutral-100 py-1 px-2 rounded-sm" @click="markSkipped(3)">
+                            Dismiss
+                        </button>
 
-                        <span>Swipe</span>
+                        <span class="text-xs italic"><- or swipe -></span>
 
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                        </svg>
-                    </div>
-
-                    <div class="flex justify-between">
-                        <span>Dismiss</span>
-                        <span>Liked it</span>
+                        <button class="bg-sky-700 hover:bg-sky-900 text-neutral-100 py-1 px-2 mr-2 rounded-sm" @click="markLiked(3)">
+                            Liked it
+                        </button>
                     </div>
                 </div>
 
